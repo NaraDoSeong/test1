@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 </head>
 <body>
-
+hi
 <div>Teachable Machine Image Model</div>
 <button type="button" onclick="init()">Start</button>
 <div id="webcam-container"></div>
@@ -58,14 +58,19 @@
     async function predict() {
         // predict can take in an image, video or canvas html element
         const prediction = await model.predict(webcam.canvas);
-        for (let i = 0; i < maxPredictions; i++) {
+		  let index=0
+		  for (let i = 0; i < maxPredictions; i++) {
             const classPrediction =
                 prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
-        }
+            if(prediction[i].probability.toFixed(2) > 0.2){
+				labelContainer.childNodes[index].innerHTML = classPrediction;
+				index++
+			}
+		  //
+		  }
     }
 </script>
-	
-	
+
+
 </body>
 </html>
